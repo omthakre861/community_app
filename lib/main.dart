@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 import 'color_schemes.g.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -43,18 +45,10 @@ class _HomeState extends State<Home> {
           elevation: 2,
           title: Text("Community app"),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                counter.toString(),
-              ),
-              ElevatedButton(onPressed: addCounter, child: Text("Add"))
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add), onPressed: () => {}, tooltip: 'Increment'));
+        body: MapboxMap(
+          accessToken: const String.fromEnvironment("ACCESS_TOKEN"),
+          initialCameraPosition: CameraPosition(target: LatLng(19.465622, 72.806099)))
+        
+        );
   }
 }
